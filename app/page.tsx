@@ -34,7 +34,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="relative pt-20">
+    <main className="relative md:pt-20">
 
       {/* ── Hero ── */}
       <section className="relative h-[921px] w-full overflow-hidden bg-[#001a4d]">
@@ -163,7 +163,7 @@ export default function Home() {
       </section>
 
       {/* ── Upcoming Fixtures ── */}
-      <section className="bg-[#0b0b0f] py-20 px-6">
+      <section className="bg-[#0b0b0f]  px-6">
         <div className="max-w-screen-2xl mx-auto">
           <div className="flex justify-between items-end mb-12">
             <div>

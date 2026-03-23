@@ -9,6 +9,8 @@ function useHasRegistration() {
   const { isSignedIn, isLoaded } = useUser()
   const [hasReg, setHasReg] = useState<boolean>(false)
   const [checked, setChecked] = useState(false)
+ 
+
 
   useEffect(() => {
     if (!isLoaded) return
@@ -168,7 +170,21 @@ function MobileUserSection({ onClose, hasReg }: { onClose: () => void; hasReg: b
 }
 
 function RegisterButton({ hasReg }: { hasReg: boolean }) {
-  const { isSignedIn } = useUser()
+  const { isSignedIn } = useUser();
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth <= 450);
+    };
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  // Hide the button on small screens
+  if (isSmallScreen) return null;
+
   if (isSignedIn && hasReg) {
     return (
       <Link href="/my-registration"
@@ -176,14 +192,15 @@ function RegisterButton({ hasReg }: { hasReg: boolean }) {
         <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>assignment</span>
         My Registration
       </Link>
-    )
+    );
   }
+
   return (
     <Link href="/register"
       className="bg-[#ffd700] text-[#002366] px-4 md:px-6 py-2 font-headline font-bold uppercase tracking-tight text-sm scale-95 hover:scale-100 active:scale-90 transition-all duration-200">
       Register
     </Link>
-  )
+  );
 }
 
 function AdminBadge() {

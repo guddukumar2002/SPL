@@ -80,19 +80,20 @@ export default function AdminGallery() {
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="font-headline font-black text-4xl italic uppercase tracking-tighter text-[#e4e1e9]">
-            Gallery <span className="text-[#ffd700]">Management</span>
-          </h1>
-          <p className="text-[#c4c6d0]/60 text-sm mt-1">Upload and manage tournament photos & videos</p>
-        </div>
-        <button onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 bg-[#ffd700] text-[#002366] px-5 py-2.5 font-headline font-black uppercase tracking-tight text-sm hover:brightness-110 transition-all">
-          <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>add_photo_alternate</span>
-          Add Media
-        </button>
-      </div>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+  <div>
+    <h1 className="font-headline font-black text-3xl sm:text-4xl italic uppercase tracking-tighter text-[#e4e1e9]">
+      Gallery <span className="text-[#ffd700]">Management</span>
+    </h1>
+    <p className="text-[#c4c6d0]/60 text-xs sm:text-sm mt-1">Upload and manage tournament photos & videos</p>
+  </div>
+  <button onClick={() => setShowForm(true)}
+    className="flex items-center gap-1 sm:gap-2 bg-[#ffd700] text-[#002366] px-3 sm:px-5 py-1.5 sm:py-2.5 font-headline font-black uppercase tracking-tight text-xs sm:text-sm hover:brightness-110 transition-all">
+    <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>add_photo_alternate</span>
+    <span className="hidden xs:inline">Add Media</span>
+    <span className="xs:hidden">Add Media</span>
+  </button>
+</div>
 
       {/* Modal */}
       {showForm && (

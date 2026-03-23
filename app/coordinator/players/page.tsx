@@ -90,17 +90,25 @@ export default function CoordinatorPlayers() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="font-headline font-black text-3xl italic uppercase tracking-tighter text-[#e4e1e9]">Unassigned <span className="text-[#ffd700]">Players</span></h1>
-            <p className="text-[#c4c6d0]/60 text-sm mt-1">{district} District — {players.length} players waiting for team assignment</p>
-          </div>
-          <button onClick={() => setShowCreateTeam(true)}
-            className="flex items-center gap-2 bg-[#ffd700] text-[#002366] px-4 py-2.5 font-headline font-black uppercase tracking-tight text-sm hover:brightness-110 transition-all">
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>group_add</span> Create New Team
-          </button>
-        </div>
-      </div>
+  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div>
+      <h1 className="font-headline font-black text-2xl sm:text-3xl italic uppercase tracking-tighter text-[#e4e1e9]">
+        Unassigned <span className="text-[#ffd700]">Players</span>
+      </h1>
+      <p className="text-[#c4c6d0]/60 text-xs sm:text-sm mt-1">
+        {district} District — {players.length} players waiting for team assignment
+      </p>
+    </div>
+    <button 
+      onClick={() => setShowCreateTeam(true)}
+      className="flex items-center gap-1 sm:gap-2 bg-[#ffd700] text-[#002366] px-3 sm:px-4 py-1.5 sm:py-2.5 font-headline font-black uppercase tracking-tight text-xs sm:text-sm hover:brightness-110 transition-all"
+    >
+      <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>group_add</span>
+      <span className="hidden xs:inline">Create New Team</span>
+      <span className="xs:hidden">Create New Team</span>
+    </button>
+  </div>
+</div>
 
       {/* Create Team Modal */}
       {showCreateTeam && (

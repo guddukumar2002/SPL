@@ -26,7 +26,9 @@ export default function Scholarships() {
 
       {/* Big Number */}
       <section className="py-20 px-6 bg-[#131318] border-b border-[#444650]/15 text-center">
-        <div className="text-[12rem] font-headline font-black text-[#ffd700] leading-none tracking-tighter">50%</div>
+       <div className="text-[4rem] sm:text-[6rem] md:text-[9rem] lg:text-[12rem] font-headline font-black text-[#ffd700] leading-none tracking-tighter">
+  50%
+</div>
         <p className="text-2xl font-headline font-bold uppercase tracking-widest text-[#c4c6d0] mt-4">Scholarship on Tuition Fees</p>
         <p className="text-[#c4c6d0] mt-4 max-w-xl mx-auto">
           Every player who participates in SPL U19 is eligible for a 50% scholarship at <strong className="text-[#e4e1e9]">Saroj International University</strong>

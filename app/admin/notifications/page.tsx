@@ -66,18 +66,18 @@ export default function AdminNotifications() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
         {[
           { icon: 'emoji_events', color: 'text-[#ffd700]', bg: 'bg-[#ffd700]/10', border: 'border-[#ffd700]/20', value: teams.length, label: 'Total Teams' },
-          { icon: 'mail',         color: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-400/20', value: teams.filter(t => t.contactEmail).length, label: 'Teams with Email' },
-          { icon: 'send',         color: 'text-violet-400', bg: 'bg-violet-400/10', border: 'border-violet-400/20', value: targetCount, label: 'Selected Recipients' },
+          { icon: 'mail', color: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-400/20', value: teams.filter(t => t.contactEmail).length, label: 'Teams with Email' },
+          { icon: 'send', color: 'text-violet-400', bg: 'bg-violet-400/10', border: 'border-violet-400/20', value: targetCount, label: 'Selected Recipients' },
         ].map(s => (
-          <div key={s.label} className="bg-[#131318] border border-[#444650]/20 p-5 text-center">
-            <div className={`w-10 h-10 ${s.bg} border ${s.border} flex items-center justify-center mx-auto mb-3`}>
-              <span className={`material-symbols-outlined ${s.color}`} style={{ fontSize: '20px' }}>{s.icon}</span>
+          <div key={s.label} className="bg-[#131318] border border-[#444650]/20 p-3 sm:p-5 text-center">
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 ${s.bg} border ${s.border} flex items-center justify-center mx-auto mb-2 sm:mb-3`}>
+              <span className={`material-symbols-outlined ${s.color} text-base sm:text-xl`} style={{ fontSize: '1rem' }}>{s.icon}</span>
             </div>
-            <p className={`text-3xl font-headline font-black ${s.color}`}>{s.value}</p>
-            <p className="text-xs font-headline font-bold uppercase tracking-widest text-[#c4c6d0]/50 mt-1">{s.label}</p>
+            <p className={`text-2xl sm:text-3xl font-headline font-black ${s.color}`}>{s.value}</p>
+            <p className="text-[0.6rem] sm:text-xs font-headline font-bold uppercase tracking-widest text-[#c4c6d0]/50 mt-1">{s.label}</p>
           </div>
         ))}
       </div>
@@ -100,9 +100,9 @@ export default function AdminNotifications() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { value: 'ALL_TEAMS', label: 'All Teams' },
-              { value: 'APPROVED',  label: 'Approved'  },
-              { value: 'PENDING',   label: 'Pending'   },
-              { value: 'DISTRICT',  label: 'By District'},
+              { value: 'APPROVED', label: 'Approved' },
+              { value: 'PENDING', label: 'Pending' },
+              { value: 'DISTRICT', label: 'By District' },
             ].map(opt => (
               <button key={opt.value} type="button" onClick={() => setForm(f => ({ ...f, target: opt.value }))}
                 className={`py-2.5 text-xs font-headline font-bold uppercase tracking-widest border-2 transition-colors ${form.target === opt.value ? 'border-[#ffd700] bg-[#ffd700]/10 text-[#ffd700]' : 'border-[#444650]/30 text-[#c4c6d0]/60 hover:border-[#ffd700]/40'}`}>

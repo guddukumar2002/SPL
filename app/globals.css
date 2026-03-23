@@ -99,3 +99,9 @@ html { -ms-overflow-style: none; scrollbar-width: none; scroll-behavior: auto; }
   .badge-green { @apply bg-green-100 text-green-700; }
   .badge-red   { @apply bg-red-100 text-red-700; }
 }
+
+@media (max-width: 750px) {
+  .hero-fifty {
+    font-size: 2.25rem; /* approximate text-4xl */
+  }
+}

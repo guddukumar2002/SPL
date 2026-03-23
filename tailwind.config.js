@@ -18,6 +18,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'custom': '750px',
+      },
+
       colors: {
         // Legacy colors (used by admin/coordinator/register pages)
         primary: {

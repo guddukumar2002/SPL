@@ -137,7 +137,7 @@ export default function Eligibility() {
           <div className="grid md:grid-cols-2 gap-4">
             {[
               { label: 'SPL Official Brochure', desc: 'Tournament overview, rules and prize details', file: '/uploads/SPL Website Document.pdf', icon: 'picture_as_pdf' },
-              { label: 'Registration Form (PDF)', desc: 'Printable registration form for offline submission', file: '/uploads/SPL Website Document.pdf', icon: 'assignment' },
+              { label: 'Registration Form (PDF)', desc: 'Printable registration form for offline submission', file: '/uploads/Registration-Form.pdf', icon: 'assignment' }, // ← changed file name
             ].map(doc => (
               <a key={doc.label} href={doc.file} target="_blank" rel="noopener noreferrer"
                 className="bg-[#0b0b0f] border border-[#444650]/20 p-5 flex items-center gap-4 hover:border-[#ffd700]/40 transition-colors group">

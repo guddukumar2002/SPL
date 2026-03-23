@@ -18,8 +18,8 @@ interface Team {
 
 const statusCls: Record<string, string> = {
   APPROVED: 'text-emerald-400 border-emerald-400/30 bg-emerald-400/10',
-  REJECTED:  'text-red-400 border-red-400/30 bg-red-400/10',
-  PENDING:   'text-[#ffd700] border-[#ffd700]/30 bg-[#ffd700]/10',
+  REJECTED: 'text-red-400 border-red-400/30 bg-red-400/10',
+  PENDING: 'text-[#ffd700] border-[#ffd700]/30 bg-[#ffd700]/10',
 }
 
 export default function AdminTeams() {
@@ -70,56 +70,136 @@ export default function AdminTeams() {
       {viewTeam && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
           <div className="bg-[#131318] border border-[#444650]/30 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center p-6 border-b border-[#444650]/20 sticky top-0 bg-[#131318]">
-              <div>
-                <h2 className="font-headline font-black text-xl uppercase tracking-tight text-[#ffd700]">{viewTeam.name}</h2>
-                <p className="text-xs text-[#c4c6d0]/60 mt-1">{viewTeam.registrationId} • {viewTeam.district} • {viewTeam.schoolCollege}</p>
+            <div className="sticky top-0 bg-[#131318] border-b border-[#444650]/20 p-4 sm:p-6">
+              <div className="flex justify-between items-start gap-4">
+                <div className="flex-1">
+                  <h2 className="font-headline font-black text-lg sm:text-xl uppercase tracking-tight text-[#ffd700] break-words">{viewTeam.name}</h2>
+                  <p className="text-xs text-[#c4c6d0]/60 mt-1 break-words">
+                    {viewTeam.registrationId} • {viewTeam.district} • {viewTeam.schoolCollege}
+                  </p>
+                </div>
+                <button onClick={() => setViewTeam(null)} className="flex-shrink-0 text-[#c4c6d0]/40 hover:text-[#ffd700] transition-colors">
+                  <span className="material-symbols-outlined">close</span>
+                </button>
               </div>
-              <button onClick={() => setViewTeam(null)} className="text-[#c4c6d0]/40 hover:text-[#ffd700] transition-colors">
-                <span className="material-symbols-outlined">close</span>
-              </button>
             </div>
-            <div className="p-6 space-y-6">
-              <div className="grid grid-cols-2 gap-3 text-sm bg-[#0b0b0f] border border-[#444650]/20 p-4">
-                {viewTeam.coachName && <div><span className="text-[#c4c6d0]/50">Coach:</span> <span className="text-[#e4e1e9] font-semibold">{viewTeam.coachName}</span> {viewTeam.coachPhone && <span className="text-[#c4c6d0]/50">({viewTeam.coachPhone})</span>}</div>}
-                {viewTeam.managerName && <div><span className="text-[#c4c6d0]/50">Manager:</span> <span className="text-[#e4e1e9] font-semibold">{viewTeam.managerName}</span> {viewTeam.managerPhone && <span className="text-[#c4c6d0]/50">({viewTeam.managerPhone})</span>}</div>}
-                {viewTeam.contactEmail && <div><span className="text-[#c4c6d0]/50">Email:</span> <span className="text-[#e4e1e9] font-semibold">{viewTeam.contactEmail}</span></div>}
-                <div><span className="text-[#c4c6d0]/50">Payment:</span> <span className={`font-semibold ${viewTeam.payments?.[0]?.status === 'COMPLETED' ? 'text-emerald-400' : 'text-[#ffd700]'}`}>{viewTeam.payments?.[0]?.status || 'PENDING'}</span></div>
+            <div className="p-4 sm:p-6 space-y-5">
+              {/* Team Details - Responsive Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm bg-[#0b0b0f] border border-[#444650]/20 p-3 sm:p-4">
+                {viewTeam.coachName && (
+                  <div className="break-words">
+                    <span className="text-[#c4c6d0]/50">Coach:</span>{' '}
+                    <span className="text-[#e4e1e9] font-semibold">{viewTeam.coachName}</span>{' '}
+                    {viewTeam.coachPhone && <span className="text-[#c4c6d0]/50 text-xs">({viewTeam.coachPhone})</span>}
+                  </div>
+                )}
+                {viewTeam.managerName && (
+                  <div className="break-words">
+                    <span className="text-[#c4c6d0]/50">Manager:</span>{' '}
+                    <span className="text-[#e4e1e9] font-semibold">{viewTeam.managerName}</span>{' '}
+                    {viewTeam.managerPhone && <span className="text-[#c4c6d0]/50 text-xs">({viewTeam.managerPhone})</span>}
+                  </div>
+                )}
+                {viewTeam.contactEmail && (
+                  <div className="break-words sm:col-span-2">
+                    <span className="text-[#c4c6d0]/50">Email:</span>{' '}
+                    <span className="text-[#e4e1e9] font-semibold break-all">{viewTeam.contactEmail}</span>
+                  </div>
+                )}
+                <div>
+                  <span className="text-[#c4c6d0]/50">Payment:</span>{' '}
+                  <span className={`font-semibold ${viewTeam.payments?.[0]?.status === 'COMPLETED' ? 'text-emerald-400' : 'text-[#ffd700]'}`}>
+                    {viewTeam.payments?.[0]?.status || 'PENDING'}
+                  </span>
+                </div>
               </div>
+
+              {/* Players Section */}
               <div>
-                <h3 className="font-headline font-bold uppercase tracking-tight text-[#c4c6d0] mb-3 text-sm">Players & Documents ({viewTeam.players?.length || 0}){viewTeam.players?.some(p => p.isIndividual) && <span className="ml-2 text-[0.6rem] text-violet-400 border border-violet-400/30 px-2 py-0.5">+{viewTeam.players.filter(p => p.isIndividual).length} assigned</span>}</h3>
+                <h3 className="font-headline font-bold uppercase tracking-tight text-[#c4c6d0] mb-3 text-sm flex flex-wrap items-center gap-2">
+                  Players & Documents ({viewTeam.players?.length || 0})
+                  {viewTeam.players?.some(p => p.isIndividual) && (
+                    <span className="text-[0.6rem] text-violet-400 border border-violet-400/30 px-2 py-0.5 whitespace-nowrap">
+                      +{viewTeam.players.filter(p => p.isIndividual).length} assigned
+                    </span>
+                  )}
+                </h3>
                 <div className="space-y-3">
                   {viewTeam.players?.map((player, i) => (
-                    <div key={player.id} className="border border-[#444650]/20 bg-[#0b0b0f] p-4">
-                      <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <span className="font-headline font-bold text-[#e4e1e9]">{i + 1}. {player.name}</span>
-                          <span className="ml-2 text-xs text-[#c4c6d0]/50">{player.phone}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {player.isIndividual && (
-                            <span className="text-[0.6rem] font-headline font-bold uppercase tracking-widest text-violet-400 border border-violet-400/30 bg-violet-400/10 px-2 py-0.5">Individual</span>
+                    <div key={player.id} className="border border-[#444650]/20 bg-[#0b0b0f] p-3 sm:p-4">
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-3">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="font-headline font-bold text-[#e4e1e9] text-sm sm:text-base">
+                            {i + 1}. {player.name}
+                          </span>
+                          {player.phone && (
+                            <span className="text-xs text-[#c4c6d0]/50 break-all">{player.phone}</span>
                           )}
-                          <span className="text-[0.6rem] font-headline font-bold uppercase tracking-widest text-[#ffd700] border border-[#ffd700]/30 px-2 py-0.5">{player.role}</span>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          {player.isIndividual && (
+                            <span className="text-[0.6rem] font-headline font-bold uppercase tracking-widest text-violet-400 border border-violet-400/30 bg-violet-400/10 px-2 py-0.5 whitespace-nowrap">
+                              Individual
+                            </span>
+                          )}
+                          <span className="text-[0.6rem] font-headline font-bold uppercase tracking-widest text-[#ffd700] border border-[#ffd700]/30 px-2 py-0.5 whitespace-nowrap">
+                            {player.role}
+                          </span>
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        {player.aadhaarDoc ? <a href={player.aadhaarDoc} target="_blank" rel="noopener noreferrer" className="text-xs text-[#ffd700] border border-[#ffd700]/30 px-2 py-1 hover:bg-[#ffd700]/10 transition-colors">📄 Aadhaar</a> : <span className="text-xs text-red-400 border border-red-400/30 px-2 py-1">❌ Aadhaar missing</span>}
-                        {player.schoolIdDoc ? <a href={player.schoolIdDoc} target="_blank" rel="noopener noreferrer" className="text-xs text-[#ffd700] border border-[#ffd700]/30 px-2 py-1 hover:bg-[#ffd700]/10 transition-colors">📄 School ID</a> : <span className="text-xs text-red-400 border border-red-400/30 px-2 py-1">❌ School ID missing</span>}
-                        {player.dobProofDoc ? <a href={player.dobProofDoc} target="_blank" rel="noopener noreferrer" className="text-xs text-[#ffd700] border border-[#ffd700]/30 px-2 py-1 hover:bg-[#ffd700]/10 transition-colors">📄 DOB Proof</a> : <span className="text-xs text-red-400 border border-red-400/30 px-2 py-1">❌ DOB Proof missing</span>}
-                        {player.photoDoc ? <a href={player.photoDoc} target="_blank" rel="noopener noreferrer" className="text-xs text-[#ffd700] border border-[#ffd700]/30 px-2 py-1 hover:bg-[#ffd700]/10 transition-colors">📄 Photo</a> : <span className="text-xs text-red-400 border border-red-400/30 px-2 py-1">❌ Photo missing</span>}
+                        {player.aadhaarDoc ? (
+                          <a href={player.aadhaarDoc} target="_blank" rel="noopener noreferrer"
+                            className="text-xs text-[#ffd700] border border-[#ffd700]/30 px-2 py-1 hover:bg-[#ffd700]/10 transition-colors whitespace-nowrap">
+                            📄 Aadhaar
+                          </a>
+                        ) : (
+                          <span className="text-xs text-red-400 border border-red-400/30 px-2 py-1 whitespace-nowrap">❌ Aadhaar missing</span>
+                        )}
+                        {player.schoolIdDoc ? (
+                          <a href={player.schoolIdDoc} target="_blank" rel="noopener noreferrer"
+                            className="text-xs text-[#ffd700] border border-[#ffd700]/30 px-2 py-1 hover:bg-[#ffd700]/10 transition-colors whitespace-nowrap">
+                            📄 School ID
+                          </a>
+                        ) : (
+                          <span className="text-xs text-red-400 border border-red-400/30 px-2 py-1 whitespace-nowrap">❌ School ID missing</span>
+                        )}
+                        {player.dobProofDoc ? (
+                          <a href={player.dobProofDoc} target="_blank" rel="noopener noreferrer"
+                            className="text-xs text-[#ffd700] border border-[#ffd700]/30 px-2 py-1 hover:bg-[#ffd700]/10 transition-colors whitespace-nowrap">
+                            📄 DOB Proof
+                          </a>
+                        ) : (
+                          <span className="text-xs text-red-400 border border-red-400/30 px-2 py-1 whitespace-nowrap">❌ DOB Proof missing</span>
+                        )}
+                        {player.photoDoc ? (
+                          <a href={player.photoDoc} target="_blank" rel="noopener noreferrer"
+                            className="text-xs text-[#ffd700] border border-[#ffd700]/30 px-2 py-1 hover:bg-[#ffd700]/10 transition-colors whitespace-nowrap">
+                            📄 Photo
+                          </a>
+                        ) : (
+                          <span className="text-xs text-red-400 border border-red-400/30 px-2 py-1 whitespace-nowrap">❌ Photo missing</span>
+                        )}
                       </div>
                     </div>
                   ))}
-                  {(!viewTeam.players || viewTeam.players.length === 0) && <p className="text-sm text-[#c4c6d0]/40">No players found</p>}
+                  {(!viewTeam.players || viewTeam.players.length === 0) && (
+                    <p className="text-sm text-[#c4c6d0]/40">No players found</p>
+                  )}
                 </div>
               </div>
+
+              {/* Status Actions */}
               {viewTeam.status === 'PENDING' && (
-                <div className="flex gap-3 pt-2 border-t border-[#444650]/20">
-                  <button onClick={() => updateTeamStatus(viewTeam.id, 'APPROVED')} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-headline font-black uppercase tracking-tight py-2.5 flex items-center justify-center gap-2 transition-colors">
+                <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-[#444650]/20">
+                  <button
+                    onClick={() => updateTeamStatus(viewTeam.id, 'APPROVED')}
+                    className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-headline font-black uppercase tracking-tight py-2.5 flex items-center justify-center gap-2 transition-colors">
                     <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>check_circle</span> Approve Team
                   </button>
-                  <button onClick={() => updateTeamStatus(viewTeam.id, 'REJECTED')} className="flex-1 bg-red-500 hover:bg-red-600 text-white font-headline font-black uppercase tracking-tight py-2.5 flex items-center justify-center gap-2 transition-colors">
+                  <button
+                    onClick={() => updateTeamStatus(viewTeam.id, 'REJECTED')}
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white font-headline font-black uppercase tracking-tight py-2.5 flex items-center justify-center gap-2 transition-colors">
                     <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>cancel</span> Reject Team
                   </button>
                 </div>
