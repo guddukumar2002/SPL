@@ -7,7 +7,7 @@ const phases = [
     points: ['Round-robin format within districts', 'Top 2 teams from each district qualify', 'Matches conducted at local grounds'],
   },
   {
-    num: '02', week: 'Week 3', title: 'Zonal Championships', color: '#c4c6d0',
+    num: '02', week: 'Week 3', title: 'Zonal Championships', color: '#ffd700',
     desc: 'District winners compete in zonal championships.',
     points: ['4 zones: East, West, North, South UP', 'Knockout format', 'Zone winners advance to state level'],
   },
